@@ -3,27 +3,6 @@ import json
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 
-# print(response.text)
-
-# def jprint(obj):
-    # text = json.dumps(obj, sort_keys=True, indent=4)
-    # print(text)
-
-# jprint(response.json())
-
-# text1 = json.dumps(response.json(), sort_keys=True, indent=4)
-# text2 = json.loads(text1)
-# print(response.json()["categoriesList"][0]["dishList"][0]["dishName"])
-
-
-
-# categories = []
-# for cat in response.json()["categoriesList"]:
-#     categories.append(cat)
-# for i in range(0,len(categories)):
-#     print(categories[i]["categoryName"])
-
-
 app = Flask(__name__)
 api = Api(app)
 
@@ -132,22 +111,18 @@ class Order(Resource):
             'pizzas': args['pizzas']
         }
 
-        # for drink in new_data["drinks"]:
         for i in range(0, len(drinkList)):
             if new_data["drinks"] == drinkList[i]["dishName"]:
                 total += drinkList[i]["dishPrice"]
                 
-        # for dessert in new_data["desserts"]:
         for i in range(0, len(dessertList)):
             if new_data["desserts"] == dessertList[i]["dishName"]:
                 total += dessertList[i]["dishPrice"]
 
-        # for pizza in new_data["pizzas"]:
         for i in range(0, len(pizzaList)):
             if new_data["pizzas"] == pizzaList[i]["dishName"]:
                 total += pizzaList[i]["dishPrice"]
 
-        # print(new_data)
         return {'price': total}, 200
 
 api.add_resource(Order, '/order')
